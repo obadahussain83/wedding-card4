@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --blush: #f8e7db;
+  --gold: #c9a227;
+  --gold-dark: #b8860b;
+  --ink: #4a3a2a;
+}
+
+html,
+body {
+  height: 100%;
+  overscroll-behavior: none;
+  background: #ecdccf;
+}
+
+body {
+  color: var(--ink);
+}
+
+/* حاوية السكرول بنظام snap زي الريلز */
+.snap-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100dvh;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.snap-container::-webkit-scrollbar {
+  display: none;
+}
+
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  height: 100dvh;
+  position: relative;
+  overflow: hidden;
+}
