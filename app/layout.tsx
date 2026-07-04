@@ -41,9 +41,9 @@ export const metadata: Metadata = {
     description: `نتشرف بدعوتكم لمشاركتنا فرحتنا في ${WEDDING.venue}، ${WEDDING.city}`,
     images: [
       {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
+        url: "/gallery/photo-1.jpg",
+        width: 399,
+        height: 533,
         alt: `دعوة زفاف ${WEDDING.groomName} و${WEDDING.brideName}`,
       },
     ],
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `دعوة زفاف ${WEDDING.groomName} و${WEDDING.brideName}`,
     description: "نتشرف بدعوتكم لمشاركتنا فرحتنا",
-    images: ["/opengraph-image"],
+    images: ["/gallery/photo-1.jpg"],
   },
 };
 
