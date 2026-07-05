@@ -14,7 +14,16 @@ export default function Rsvp() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
-    // TODO: اربط الفورم بخدمة خارجية (Google Form / API) لتخزين الردود
+
+    const message =
+      attending === "yes"
+        ? `تأكيد حضور 🎉\nالاسم: ${name.trim()}\nعدد الأشخاص: ${guests}`
+        : `اعتذار عن الحضور 🤍\nالاسم: ${name.trim()}`;
+
+    window.open(
+      `https://wa.me/970598579108?text=${encodeURIComponent(message)}`,
+      "_blank"
+    );
     setSubmitted(true);
   };
 
