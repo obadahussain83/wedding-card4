@@ -159,6 +159,8 @@ function FallingPetals() {
 }
 
 // خاتمان ذهب بينزلقوا وبيتشابكوا مع لمعات متلألئة — بتعيد الحركة كل ما يبين السكشن
+// ملاحظة: مراقبة الظهور (whileInView) لازم تكون على div عادي مش على عناصر SVG داخلية،
+// لأن سفاري على iOS ما بيدعم IntersectionObserver على عناصر SVG فالخواتم كانت بتضل مخفية
 function WeddingRings() {
   return (
     <motion.div
@@ -167,6 +169,11 @@ function WeddingRings() {
       animate={{ y: [0, -5, 0] }}
       transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
     >
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.5 }}
+      >
       <svg viewBox="0 0 220 130" className="w-44" aria-hidden>
         <defs>
           <linearGradient id="ringGold" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -183,10 +190,15 @@ function WeddingRings() {
 
         {/* الخاتم الأيسر — بيجي من اليسار وبيدور */}
         <motion.g
-          initial={{ x: -55, rotate: -25, opacity: 0 }}
-          whileInView={{ x: 0, rotate: 0, opacity: 1 }}
-          viewport={{ once: false, amount: 0.5 }}
-          transition={{ type: "spring", stiffness: 60, damping: 12, delay: 0.15 }}
+          variants={{
+            hidden: { x: -55, rotate: -25, opacity: 0 },
+            visible: {
+              x: 0,
+              rotate: 0,
+              opacity: 1,
+              transition: { type: "spring", stiffness: 60, damping: 12, delay: 0.15 },
+            },
+          }}
           style={{ transformOrigin: "88px 72px" }}
         >
           <circle cx="88" cy="72" r="36" fill="none" stroke="url(#ringGold)" strokeWidth="7.5" />
@@ -195,20 +207,28 @@ function WeddingRings() {
 
         {/* الخاتم الأيمن — بيجي من اليمين ومعه الألماسة */}
         <motion.g
-          initial={{ x: 55, rotate: 25, opacity: 0 }}
-          whileInView={{ x: 0, rotate: 0, opacity: 1 }}
-          viewport={{ once: false, amount: 0.5 }}
-          transition={{ type: "spring", stiffness: 60, damping: 12, delay: 0.3 }}
+          variants={{
+            hidden: { x: 55, rotate: 25, opacity: 0 },
+            visible: {
+              x: 0,
+              rotate: 0,
+              opacity: 1,
+              transition: { type: "spring", stiffness: 60, damping: 12, delay: 0.3 },
+            },
+          }}
           style={{ transformOrigin: "132px 62px" }}
         >
           <circle cx="132" cy="62" r="36" fill="none" stroke="url(#ringGold2)" strokeWidth="7.5" />
           <circle cx="132" cy="62" r="36" fill="none" stroke="#FFF3C4" strokeWidth="2" opacity="0.5" strokeDasharray="18 95" strokeLinecap="round" />
           {/* الألماسة */}
           <motion.g
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: false, amount: 0.5 }}
-            transition={{ type: "spring", stiffness: 200, damping: 10, delay: 0.75 }}
+            variants={{
+              hidden: { scale: 0 },
+              visible: {
+                scale: 1,
+                transition: { type: "spring", stiffness: 200, damping: 10, delay: 0.75 },
+              },
+            }}
             style={{ transformOrigin: "132px 20px" }}
           >
             <path d="M132 12 L140 20 L132 30 L124 20 Z" fill="#EAF4F8" stroke="#B9D8E3" strokeWidth="1.2" />
@@ -222,10 +242,10 @@ function WeddingRings() {
           fill="none"
           stroke="url(#ringGold)"
           strokeWidth="7.5"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: false, amount: 0.5 }}
-          transition={{ delay: 0.55, duration: 0.2 }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { delay: 0.55, duration: 0.2 } },
+          }}
         />
 
         {/* لمعات متلألئة حوالين الخواتم */}
@@ -250,6 +270,7 @@ function WeddingRings() {
           </motion.g>
         ))}
       </svg>
+      </motion.div>
     </motion.div>
   );
 }
